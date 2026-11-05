@@ -1,0 +1,21 @@
+{
+    "name": "anilist-proxy",
+    "module": "src/index.js",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "start": "bun src/index.js"
+    },
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^7"
+    },
+    "dependencies": {
+        "chalk": "4.1.2",
+        "express": "^5.2.1",
+        "express-rate-limit": "^8.6.2",
+        "node-fetch": "^3.3.2"
+    }
+}

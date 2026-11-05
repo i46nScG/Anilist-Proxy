@@ -1,0 +1,233 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --terminal-bg: #0a0e0c;
+    --screen-bg: #0d1210;
+    --text-primary: #4dff85;
+    --text-dim: #2f9e5c;
+    --text-muted: #1f6b3d;
+    --text-error: #ff5c5c;
+    --border-color: #1c3324;
+    --glow-color: rgba(77, 255, 133, 0.55);
+    --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+    --font-size: 15px;
+    --line-height: 1.55;
+    --scanline-opacity: 0.06;
+    --flicker-enabled: 1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--terminal-bg);
+    font-family: var(--font-mono);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    gap: 24px;
+}
+
+#crtOverlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 1px,
+        rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+        rgba(0, 0, 0, var(--scanline-opacity)) 3px
+    );
+    mix-blend-mode: multiply;
+}
+
+#terminal {
+    width: 100%;
+    max-width: 860px;
+    height: 620px;
+    max-height: 88vh;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.4),
+        0 24px 60px rgba(0, 0, 0, 0.6),
+        0 0 90px rgba(77, 255, 133, 0.06);
+}
+
+#titleBar {
+    background: #0f1613;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+#titleDots {
+    display: flex;
+    gap: 7px;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    opacity: 0.85;
+}
+
+.dotRed {
+    background: #ff5f57;
+}
+.dotYellow {
+    background: #febc2e;
+}
+.dotGreen {
+    background: #28c840;
+}
+
+#titleText {
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    margin: 0 auto;
+}
+
+#screen {
+    flex: 1;
+    background: var(--screen-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    padding: 18px 20px;
+    overflow-y: auto;
+    text-shadow: 0 0 6px var(--glow-color);
+    animation: flicker 6s infinite;
+}
+
+#screen::-webkit-scrollbar {
+    width: 10px;
+}
+
+#screen::-webkit-scrollbar-track {
+    background: var(--screen-bg);
+}
+
+#screen::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 6px;
+}
+
+#output {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.line {
+    margin: 0 0 2px 0;
+}
+
+.lineCommand {
+    color: var(--text-primary);
+}
+
+.lineResponse {
+    color: var(--text-dim);
+}
+
+.lineError {
+    color: var(--text-error);
+}
+
+.lineMuted {
+    color: var(--text-muted);
+}
+
+.promptSymbol {
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+#inputLine {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+#promptLabel {
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+#commandInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size);
+    caret-color: var(--text-primary);
+    text-shadow: 0 0 6px var(--glow-color);
+}
+
+@keyframes flicker {
+    0%,
+    96%,
+    100% {
+        opacity: 1;
+    }
+    97% {
+        opacity: 0.985;
+    }
+    98% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0.99;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #screen {
+        animation: none;
+    }
+}
+
+@media (max-width: 560px) {
+    #terminal {
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    body {
+        padding: 0;
+    }
+}
+
+#container-5143bcc70820576864e06822ed74b450 {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    justify-content: center;
+    z-index: 15;
+}
